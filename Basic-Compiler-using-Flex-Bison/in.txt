@@ -1,3 +1,4 @@
+print(1+1*2)
 print(30)
 x = 7 * (1 + 4)
 print(x)
@@ -10,6 +11,9 @@ x=0
 y=2
 print(-1)
 print(y*-2)
-print(1/0)
-
-
+print(2)
+if(3>3): 
+print(50)
+print(75)
+print(100)
+end
