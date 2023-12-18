@@ -17,10 +17,14 @@ void yyerror(char *);
                 yylval = atoi(yytext);
                 return INTEGER;
             }
-[-+()*/=\n] { /* operators */ return *yytext; }
+[-+()*/=<>:\n] { /* operators */ return *yytext; }
 [ \t]        ; /* skip whitespace */
 
 [Pp][Rr][Ii][Nn][Tt]    { return PRINT; }
+[Ii][Ff]                { return IF;}
+[Ee][Ll][Ss][Ee]        { return ELSE;}
+[Ee][Nn][Dd]            { return END;}
+
 
 .            yyerror("invalid character"); /* anything else is an error */
 %%

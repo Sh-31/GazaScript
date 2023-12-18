@@ -1,4 +1,4 @@
-%token INTEGER VARIABLE PRINT
+%token INTEGER VARIABLE PRINT IF ELSE END
 %right  '=' UMINUS
 %left '+' '-' 
 %left '*' '/'
@@ -29,7 +29,29 @@ lines:
 line: expr
     | assignment
     | print_statement
+    | if_condition
     ;
+
+if_condition: IF '(' condition ')' ':' '\n' lines END   {
+                                                            if($3) {
+                                                                // Execute the lines inside if
+                                                                $$ = $7;
+                                                            } else {
+                                                                
+                                                            }
+                                                        }
+            | IF '(' condition ')' ':' '\n' lines ELSE lines END    {
+                                                                        if ($3) {
+                                                                            fprintf(yyout, "True");
+                                                                        } else {
+                                                                            fprintf(yyout, "False");
+                                                                        }
+                                                                    }
+            ;
+
+condition: expr '>' expr {$$ = $1 > $3;}
+        | expr '<' expr  {$$ = $1 < $3;}
+        ;
 
 assignment: VARIABLE '=' expr {
     sym[$1] = $3;
