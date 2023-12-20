@@ -1,19 +1,2 @@
-print(1+1*2)
-print(30)
-x = 7 * (1 + 4)
-print(x)
-print(x+10)
-print(y)
-print(y+2)
-print(x+y)
-print(1+2+5)
-x=0
-y=2
-print(-1)
-print(y*-2)
-print(2)
-if(3>3): 
-print(50)
-print(75)
-print(100)
-end
+1+1
+1-1
