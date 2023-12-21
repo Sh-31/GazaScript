@@ -30,19 +30,20 @@ main : lines
      |
      ;   
      
-lines: lines line '\n'  {$$ = create_internal_node('r', $2,NULL); root=$$;}
+lines: line '\n' lines    {$$ = create_internal_node('r', $1,$3); root=$$;}
       | /* empty */ {}
       ;
 
-line: expr  {$$ = create_internal_node('r', $1,NULL);}
-    | assignment {$$ = create_internal_node('r', $1,NULL);}
-    | print_statement {$$ = create_internal_node('r', $1,NULL);}
-    | if_condition {$$ = create_internal_node('r', $1,NULL);}
+line: expr  {$$ = create_op_node('1', $1);}
+    | assignment {$$ = create_op_node('2', $1);}
+    | print_statement {$$ = create_op_node('3', $1);}
+    | if_condition {$$ = create_op_node('4', $1);}
+    | /* empty */ {}
     ;
 
 
 if_condition: IF '(' expr ')' ':' '\n' lines END  { $$ = create_if_condition_node('F', $3, $7, NULL); }
-            | IF '(' expr ')' ':' '\n' lines ELSE ':' lines END { $$ = create_if_condition_node('E', $3, $7, $10); }
+            | IF '(' expr ')' ':' '\n' lines ELSE ':' lines END { $$ = create_if_condition_node('F', $3, $7, $10); }
             | /* empty */ {}
             ;
 
@@ -65,12 +66,12 @@ print_statement: PRINT '(' expr ')'                  { $$ = create_internal_node
 
 expr: INTEGER { $$ = create_leaf_node('i', $1); }
     | '-' expr %prec UMINUS { $$ = create_internal_node('n', $2, NULL); }
-    | expr '*' expr { $$ = create_internal_node('*', $1, $3); printf("%c", $$->type); }
-    | expr '/' expr { $$ = create_internal_node('/', $1, $3); printf("%c", $$->type); }
-    | expr '+' expr { $$ = create_internal_node('+', $1, $3); printf("%c", $$->type); }
-    | expr '-' expr { $$ = create_internal_node('-', $1, $3); printf("%c", $$->type); }
-    | expr '>' expr { $$ = create_internal_node('>', $1, $3); }
-    | expr '<' expr { $$ = create_internal_node('<', $1, $3); }
+    | expr '*' expr { $$ = create_internal_node('*', $1, $3);  }
+    | expr '/' expr { $$ = create_internal_node('/', $1, $3);  }
+    | expr '+' expr { $$ = create_internal_node('+', $1, $3);  }
+    | expr '-' expr { $$ = create_internal_node('-', $1, $3);  }
+    | expr '>' expr { $$ = create_internal_node('>', $1, $3);  }
+    | expr '<' expr { $$ = create_internal_node('<', $1, $3);  }
     | '(' expr ')'  { $$ = $2; }
     | /* empty */ {}
     ;
@@ -95,15 +96,16 @@ int main(void)
     int sym[26] = {0};
     /*root = create_internal_node('p', create_internal_node('+', create_leaf_node('i', 2),create_leaf_node('i', 10) ), NULL);*/
 
-    if (root != NULL) printf("yes");
-    else printf("NO");
+    if (root != NULL) printf("yes\n");
+    else printf("NO\n");
     execute_ast(root, sym, yyout);
-    free_ast(root);
+
     
 
     fclose(yyin);
     fclose(yyout);
     fclose(yyError);
+   // free_ast(root);
 
     return 0;
 }
