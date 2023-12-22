@@ -8,8 +8,6 @@ ASTNode *create_leaf_node(char type, int value)
     ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
     node->type = type; 
     node->value = value;
-    node->left = NULL;
-    node->right = NULL;
     return node;
 }
 ASTNode *create_op_node(char type,  ASTNode *left){
@@ -36,7 +34,17 @@ ASTNode *create_if_condition_node(char type, ASTNode *condition, ASTNode *left, 
     node->right = right;
     return node;
 }
-ASTNode * AccessVariable(char type,ASTNode *node){
+ASTNode *AssignNode(char type,int variableASCII,ASTNode *left){
+    ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
+    node->type = type;
+    node->variable = variableASCII;
+    node->left = left;
+    return node;
+}
+ASTNode *AccessVariable(char type,int variableASCII){
+    ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
+    node->type = type;
+    node->variable = variableASCII;
     return node;
 }
 void free_ast(ASTNode *node)
@@ -51,7 +59,7 @@ void free_ast(ASTNode *node)
 int execute_ast(ASTNode *node, int sym[], FILE *yyout) {
    
     if (node) {
-        //  printf("%c\n", node->type);
+         printf("%c\n", node->type);
 
         if (node->type == 'r') {
             execute_ast(node->left, sym, yyout);
@@ -64,7 +72,7 @@ int execute_ast(ASTNode *node, int sym[], FILE *yyout) {
             return node->value;
         }
         else if (node->type == '=') {
-            sym[node->left->variable] = execute_ast(node->right, sym, yyout);
+            sym[node->variable] = execute_ast(node->left, sym, yyout);
         }
         else if (node->type == 'v') {
             return sym[node->variable];
@@ -90,6 +98,18 @@ int execute_ast(ASTNode *node, int sym[], FILE *yyout) {
         else if (node->type == '>') {
             return execute_ast(node->left, sym, yyout) > execute_ast(node->right, sym, yyout);
         }
+        else if (node->type == 'g') {
+            return execute_ast(node->left, sym, yyout) <= execute_ast(node->right, sym, yyout);
+        }
+        else if (node->type == 's') {
+            return execute_ast(node->left, sym, yyout) >= execute_ast(node->right, sym, yyout);
+        }
+        else if (node->type == 'q') {
+            return execute_ast(node->left, sym, yyout) == execute_ast(node->right, sym, yyout);
+        }
+        else if (node->type == 'N') {
+            return execute_ast(node->left, sym, yyout) != execute_ast(node->right, sym, yyout);
+        }
         else if (node->type == 'p') {
              fprintf(yyout, "%d\r", execute_ast(node->left, sym, yyout));
              printf("%d\n", execute_ast(node->left, sym, yyout));
@@ -99,8 +119,12 @@ int execute_ast(ASTNode *node, int sym[], FILE *yyout) {
             if (execute_ast(node->condition, sym, yyout))
                 { printf("yes\n");return execute_ast(node->left, sym, yyout);}
             else
-                {printf("no\n");return execute_ast(node->right, sym, yyout);
-}        }
+                {
+                    if (node->right){
+                            printf("no\n");printf("%c\n",node->right->type); execute_ast(node->right, sym, yyout);
+                    }     
+               }
+        }        
     }
 
     return 0;
