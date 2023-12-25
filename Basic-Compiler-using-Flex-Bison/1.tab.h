@@ -39,7 +39,6 @@
 
 extern int yylex();
 extern int yyline;    
-extern void yyerror(char *s);  
 #include "SyntaxTree.h"
 ASTNode *root;
 FILE *yyin, *yyout, *yyError; 
@@ -47,7 +46,7 @@ FILE *yyin, *yyout, *yyError;
 
 
 /* Line 1676 of yacc.c  */
-#line 51 "1.tab.h"
+#line 50 "1.tab.h"
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -58,12 +57,14 @@ FILE *yyin, *yyout, *yyError;
      INTEGER = 258,
      VARIABLE = 259,
      STRING = 260,
-     PRINT = 261,
-     IF = 262,
-     ELSE = 263,
-     END = 264,
-     FOR = 265,
-     UMINUS = 266
+     ASSIGN = 261,
+     PRINT = 262,
+     IF = 263,
+     ELSE = 264,
+     END = 265,
+     FOR = 266,
+     EQUAL = 267,
+     UMINUS = 268
    };
 #endif
 
@@ -74,7 +75,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 12 ".\\1.y"
+#line 11 ".\\1.y"
 
     ASTNode *node;
     int value;
@@ -83,7 +84,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 87 "1.tab.h"
+#line 88 "1.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

@@ -2,24 +2,24 @@
 %{
 #include "1.tab.h"
 #include <string.h>
-void yyerror(char *);
 %}
 
 %%
 
 [a-z]                      {
-                                if (*yytext >= 'a' && *yytext <= 'z') {
-                                    yylval.value = *yytext - 'a';
-                                    return VARIABLE;
-                                } else {
-                                    yyerror("Invalid variable");
-                                }
+                            if (*yytext >= 'a' && *yytext <= 'z') {
+                                yylval.value = *yytext - 'a';
+                                return VARIABLE;
+                            } else {
+                                yyerror("Invalid variable");
+                            }
                            }
 [0-9]+                     {
                             yylval.value = atoi(yytext); 
                             return INTEGER; 
-                           }
-[-+()*/=<>:\n;{}]          { return *yytext; }
+                           }   
+[=][=]                     { return  EQUAL;  }             
+[-+()*/<>:\n;=]            { return *yytext; }
 [ \t]        ; /* skip whitespace */
 [Pp][Rr][Ii][Nn][Tt]       { return PRINT; }
 [Ii][Ff]                   { return IF;}
