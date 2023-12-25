@@ -1,4 +1,4 @@
 flex 1.l
-bison 1.y
-gcc lex.yy.c 1.tab.c
+bison -d 1.y
+gcc -o a.exe  .\1.tab.c .\lex.yy.c .\SyntaxTree.c
 a.exe
