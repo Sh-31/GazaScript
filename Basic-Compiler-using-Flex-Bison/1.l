@@ -2,6 +2,7 @@
 %{
 #include "1.tab.h"
 #include <string.h>
+extern int sym[26];
 %}
 
 %%
@@ -20,7 +21,7 @@
                            }   
 [=][=]                     { return  EQUAL;  }             
 [-+()*/<>:\n;=]            { return *yytext; }
-[ \t]        ; /* skip whitespace */
+[ \t]        ;             /* skip whitespace */
 [Pp][Rr][Ii][Nn][Tt]       { return PRINT; }
 [Ii][Ff]                   { return IF;}
 [Ee][Ll][Ss][Ee]           { return ELSE;}

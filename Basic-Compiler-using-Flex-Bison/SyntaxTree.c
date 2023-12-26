@@ -1,13 +1,18 @@
 // SyntaxTree.c
+
 #include "SyntaxTree.h"
-#include <stdlib.h>
-#include <stdio.h>
+
 
 ASTNode *Mk_leaf_node(char type, int value)
 {
     ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
     node->type = type;
     node->value = value;
+    node->left = NULL;
+    node->right = NULL;
+    node->condition = NULL;
+    node->lines = NULL;
+    node->variableASCII = NULL;
     return node;
 }
 ASTNode *Mk_op_Node(char type, ASTNode *left)
@@ -15,6 +20,9 @@ ASTNode *Mk_op_Node(char type, ASTNode *left)
     ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
     node->type = type;
     node->left = left;
+    node->right = NULL;
+    node->condition = NULL;
+    node->lines = NULL;
     return node;
 }
 ASTNode *Mk_interbal_Node(char type, ASTNode *left, ASTNode *right)
@@ -23,6 +31,10 @@ ASTNode *Mk_interbal_Node(char type, ASTNode *left, ASTNode *right)
     node->type = type;
     node->left = left;
     node->right = right;
+    node->condition = NULL;
+    node->lines = NULL; 
+    node->variableASCII = NULL;
+    node->variable = 0;
     return node;
 }
 ASTNode *Mk_if_condtition_Node(char type, ASTNode *condition, ASTNode *left, ASTNode *right)
@@ -32,6 +44,11 @@ ASTNode *Mk_if_condtition_Node(char type, ASTNode *condition, ASTNode *left, AST
     node->condition = condition;
     node->left = left;
     node->right = right;
+    node->lines = NULL;
+    node->variableASCII = NULL;
+    node->variable = 0;
+    node->value = 0;
+    node->variableASCII = NULL;
     return node;
 }
 ASTNode *Assign_Node(char type, int variableASCII, ASTNode *left)
@@ -40,6 +57,10 @@ ASTNode *Assign_Node(char type, int variableASCII, ASTNode *left)
     node->type = type;
     node->variable = variableASCII;
     node->left = left;
+    node->right = NULL;
+    node->condition = NULL;
+    node->lines = NULL;
+    node->variableASCII = NULL;
     return node;
 }
 ASTNode *Access_Variable(char type, int variableASCII)
@@ -47,6 +68,11 @@ ASTNode *Access_Variable(char type, int variableASCII)
     ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
     node->type = type;
     node->variable = variableASCII;
+    node->left = NULL;
+    node->right = NULL;
+    node->condition = NULL;
+    node->lines = NULL;
+    node->variableASCII = NULL;
     return node;
 }
 ASTNode *Mk_loop_Node(char type, ASTNode *left, ASTNode *condition, ASTNode *right, ASTNode *lines)
@@ -57,6 +83,7 @@ ASTNode *Mk_loop_Node(char type, ASTNode *left, ASTNode *condition, ASTNode *rig
     node->right = right;
     node->condition = condition;
     node->lines = lines;
+    node->variableASCII = NULL;
     return node;
 }
 ASTNode *Print_Node(char type, char *variableASCII)
@@ -64,12 +91,17 @@ ASTNode *Print_Node(char type, char *variableASCII)
     ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
     node->type = type;
     node->variableASCII = variableASCII;
+    node->left = NULL;
+    node->right = NULL;
+    node->condition = NULL;
+    node->lines = NULL;
     return node;
 }
 void free_ast(struct ASTNode *root)
 {
     if (root == NULL)
         return;
+
     free_ast(root->left);
     free_ast(root->right);
     free_ast(root->lines);
@@ -193,114 +225,47 @@ int execute_ast(ASTNode *node, int sym[], FILE *yyout)
     return 0;
 }
 
-char *lookup(int type)
-{
+char *lookup(int type) {
     char *buffer = (char *)malloc(20 * sizeof(char));
-    switch (type)
-    {
-    case 'F':
-        return "IF";
-    case 'p':
-        return "PRINT";
-    case 'l':
-        return "LINK";
-    case 'w':
-        return "WHILE";
-    case 'L':
-        return "FOR";
-    default:
-        sprintf(buffer, "%c", type); // Convert the integer to a string
-        return buffer;
+    switch(type) {
+        case 'F':
+            return "IF";
+        case 'p':
+            return "PRINT";
+        case 'l':
+            return "LINK";
+        case 'w':
+            return "WHILE";
+        case 'L':
+            return "FOR";
+        default:
+            sprintf(buffer, "%c", type);  // Convert the integer to a string
+            return buffer;
     }
 }
-
-void print_tree(struct ASTNode *root, int isLeft, char *prefix)
-{
+void print_tree(struct ASTNode* root, int isLeft, char* prefix,FILE *treeFile) {
     if (root == NULL)
         return;
-    fprintf(treeFile, prefix);
-    fprintf(treeFile, isLeft ? "├──" : "└──");
-    if (root->type == 'i')
-        fprintf(treeFile, " %d\n", root->value);
-    else if (root->type == 'v')
-        fprintf(treeFile, " %c\n", root->variable + 'a');  
-    else
-    {
-        static char buffer[20];
-        snprintf(buffer, sizeof(buffer), lookup(root->type));
-        fprintf(treeFile, " %s\n", buffer);
-    }
-    // Enter the next tree level - left and right branch
-    char *newPrefix = (char *)malloc(strlen(prefix) + 5);
-    sprintf(newPrefix, "%s%s", prefix, isLeft ? "│   " : "    ");
-
-    print_tree(root->left, 1, newPrefix);
-    print_tree(root->right, 0, newPrefix);
-}
-
-int maxx(int a, int b)
-{
-    return (a > b ? a : b);
-}
-
-int height(struct ASTNode *root)
-{
-    if (root == NULL)
-        return 0;
-    return maxx(height(root->left), height(root->right)) + 1;
-}
-
-int getcol(int h)
-{
-    if (h == 1)
-        return 1;
-    return getcol(h - 1) + getcol(h - 1) + 1;
-}
-
-void printTree(char ***M, struct ASTNode *root, int col, int row, int height)
-{
-    if (root == NULL)
-        return;
-    char buffer[20];
+    fprintf(treeFile, "%s", prefix);
+    fprintf(treeFile, "%s", isLeft ? "|--" : "|__");
     if (root->type == 'i')
         fprintf(treeFile, " %d\n", root->value);
     else if (root->type == 'v')
         fprintf(treeFile, " %c\n", root->variable + 'a');
-    else if (root->type == 'S'){
+    else if (root->type == 'P') {
         fprintf(treeFile, " %s\n", root->variableASCII);
-    } 
-    else
-    {
+    }
+    else {
+        static char buffer[20]; 
         snprintf(buffer, sizeof(buffer), lookup(root->type));
+        fprintf(treeFile, " %s\n", buffer);
     }
-    M[row][col] = strdup(buffer);
-    printTree(M, root->left, col - pow(2, height - 2), row + 1, height - 1);
-    printTree(M, root->right, col + pow(2, height - 2), row + 1, height - 1);
-}
-
-void TreePrinter(struct ASTNode *root)
-{
-    int h = height(root);
-    int col = getcol(h);
-    char ***M = (char ***)malloc(h * sizeof(char **));
-    for (int i = 0; i < h; i++)
-    {
-        M[i] = (char **)malloc(col * sizeof(char *));
-        for (int j = 0; j < col; j++)
-        {
-            M[i][j] = NULL; // Initialize to 0
-        }
-    }
-    printTree(M, root, col / 2, 0, h);
-    for (int i = 0; i < h; i++)
-    {
-        for (int j = 0; j < col; j++)
-        {
-            if (M[i][j] == 0)
-                fprintf(treeFile, "  ");
-            else
-                fprintf(treeFile, "%s ", M[i][j]);
-        }
-        fprintf(treeFile, "\n");
-    }
+    // Enter the next tree level - left and right branch
+    char* newPrefix = (char*)malloc(strlen(prefix) + 5);
+    sprintf(newPrefix, "%s%s", prefix, isLeft ? "|   " : "    ");
+    
+    print_tree(root->right, 1, newPrefix,treeFile);
+    print_tree(root->left, 0, newPrefix,treeFile);
+    // print_tree(root->cond, 0, newPrefix);
+    // print_tree(root->flow, 0, newPrefix);
 }

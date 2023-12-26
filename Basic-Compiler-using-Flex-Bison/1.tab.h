@@ -35,18 +35,19 @@
 /* "%code requires" blocks.  */
 
 /* Line 1676 of yacc.c  */
-#line 3 ".\\1.y"
+#line 3 "1.y"
 
 extern int yylex();
 extern int yyline;    
 #include "SyntaxTree.h"
 ASTNode *root;
-FILE *yyin, *yyout, *yyError; 
+FILE *yyin, *yyout, *yyError,* treeFile;; 
+
 
 
 
 /* Line 1676 of yacc.c  */
-#line 50 "1.tab.h"
+#line 51 "1.tab.h"
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -75,7 +76,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 11 ".\\1.y"
+#line 12 "1.y"
 
     ASTNode *node;
     int value;
@@ -84,7 +85,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 88 "1.tab.h"
+#line 89 "1.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

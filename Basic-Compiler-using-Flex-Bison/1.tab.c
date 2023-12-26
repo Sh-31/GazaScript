@@ -92,18 +92,19 @@
 /* "%code requires" blocks.  */
 
 /* Line 209 of yacc.c  */
-#line 3 ".\\1.y"
+#line 3 "1.y"
 
 extern int yylex();
 extern int yyline;    
 #include "SyntaxTree.h"
 ASTNode *root;
-FILE *yyin, *yyout, *yyError; 
+FILE *yyin, *yyout, *yyError,* treeFile;; 
+
 
 
 
 /* Line 209 of yacc.c  */
-#line 107 "1.tab.c"
+#line 108 "1.tab.c"
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -132,7 +133,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 11 ".\\1.y"
+#line 12 "1.y"
 
     ASTNode *node;
     int value;
@@ -141,7 +142,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 145 "1.tab.c"
+#line 146 "1.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -153,7 +154,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 157 "1.tab.c"
+#line 158 "1.tab.c"
 
 #ifdef short
 # undef short
@@ -450,10 +451,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31,    34,    35,    38,    39,    40,    41,    42,
-      43,    46,    47,    50,    53,    56,    59,    60,    63,    64,
-      65,    66,    67,    68,    69,    70,    71,    72,    73,    74,
-      75
+       0,    32,    32,    35,    36,    39,    40,    41,    42,    43,
+      44,    47,    48,    51,    54,    57,    60,    61,    64,    65,
+      66,    67,    68,    69,    70,    71,    72,    73,    74,    75,
+      76
 };
 #endif
 
@@ -1400,206 +1401,213 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
+        case 2:
 
 /* Line 1455 of yacc.c  */
-#line 34 ".\\1.y"
-    { (yyval.node) = Mk_interbal_Node('r', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));   root=(yyval.node); ;}
+#line 32 "1.y"
+    { (yyval.node) = (yyvsp[(1) - (1)].node); root = (yyval.node); ;}
+    break;
+
+  case 3:
+
+/* Line 1455 of yacc.c  */
+#line 35 "1.y"
+    { (yyval.node) = Mk_interbal_Node('r', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));   ;}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 35 ".\\1.y"
-    { (yyval.node) = Mk_interbal_Node('r', (yyvsp[(1) - (1)].node), NULL); root=(yyval.node); ;}
+#line 36 "1.y"
+    { (yyval.node) = Mk_interbal_Node('r', (yyvsp[(1) - (1)].node), NULL); ;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 38 ".\\1.y"
-    { (yyval.node) = Mk_op_Node('1', (yyvsp[(1) - (1)].node)); ;}
+#line 39 "1.y"
+    { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 39 ".\\1.y"
-    { (yyval.node) = Mk_op_Node('2', (yyvsp[(1) - (1)].node)); ;}
+#line 40 "1.y"
+    { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 40 ".\\1.y"
-    { (yyval.node) = Mk_op_Node('3', (yyvsp[(1) - (1)].node)); ;}
+#line 41 "1.y"
+    { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 41 ".\\1.y"
-    { (yyval.node) = Mk_op_Node('4', (yyvsp[(1) - (1)].node)); ;}
+#line 42 "1.y"
+    { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 42 ".\\1.y"
-    { (yyval.node) = Mk_op_Node('5', (yyvsp[(1) - (1)].node)); ;}
+#line 43 "1.y"
+    { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 43 ".\\1.y"
-    {;}
+#line 44 "1.y"
+    { (yyval.node) = NULL;;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 46 ".\\1.y"
+#line 47 "1.y"
     { (yyval.node) = Mk_if_condtition_Node('F', (yyvsp[(3) - (8)].node), (yyvsp[(7) - (8)].node), NULL); ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 47 ".\\1.y"
+#line 48 "1.y"
     { (yyval.node) = Mk_if_condtition_Node('F', (yyvsp[(3) - (11)].node), (yyvsp[(7) - (11)].node), (yyvsp[(10) - (11)].node)); ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 50 ".\\1.y"
+#line 51 "1.y"
     { (yyval.node) = Mk_loop_Node('l', (yyvsp[(3) - (12)].node), (yyvsp[(5) - (12)].node), (yyvsp[(7) - (12)].node), (yyvsp[(11) - (12)].node)); ;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 53 ".\\1.y"
+#line 54 "1.y"
     { (yyval.node) = Mk_interbal_Node('r', (yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 56 ".\\1.y"
+#line 57 "1.y"
     { (yyval.node) = Assign_Node('=', (yyvsp[(1) - (3)].value), (yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 59 ".\\1.y"
+#line 60 "1.y"
     { (yyval.node) = Mk_interbal_Node('p', (yyvsp[(3) - (4)].node), NULL); ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 60 ".\\1.y"
+#line 61 "1.y"
     { (yyval.node) = Print_Node('S', (yyvsp[(3) - (4)].strvalue)); ;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 63 ".\\1.y"
+#line 64 "1.y"
     { (yyval.node) = Mk_leaf_node('i', (yyvsp[(1) - (1)].value)); ;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 64 ".\\1.y"
+#line 65 "1.y"
     { (yyval.node) = Mk_interbal_Node('n', (yyvsp[(2) - (2)].node), NULL); ;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 65 ".\\1.y"
+#line 66 "1.y"
     { (yyval.node) = Mk_interbal_Node('*', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 66 ".\\1.y"
+#line 67 "1.y"
     { (yyval.node) = Mk_interbal_Node('/', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 67 ".\\1.y"
+#line 68 "1.y"
     { (yyval.node) = Mk_interbal_Node('+', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 68 ".\\1.y"
+#line 69 "1.y"
     { (yyval.node) = Mk_interbal_Node('-', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 69 ".\\1.y"
+#line 70 "1.y"
     { (yyval.node) = Mk_interbal_Node('>', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 70 ".\\1.y"
+#line 71 "1.y"
     { (yyval.node) = Mk_interbal_Node('<', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 71 ".\\1.y"
+#line 72 "1.y"
     { (yyval.node) = Mk_interbal_Node('g', (yyvsp[(1) - (4)].node), (yyvsp[(4) - (4)].node));  ;}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 72 ".\\1.y"
+#line 73 "1.y"
     { (yyval.node) = Mk_interbal_Node('s', (yyvsp[(1) - (4)].node), (yyvsp[(4) - (4)].node));  ;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 73 ".\\1.y"
+#line 74 "1.y"
     { (yyval.node) = Mk_interbal_Node('q', (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node));  ;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 74 ".\\1.y"
+#line 75 "1.y"
     { (yyval.node) = Mk_interbal_Node('N', (yyvsp[(1) - (4)].node), (yyvsp[(4) - (4)].node));  ;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 75 ".\\1.y"
+#line 76 "1.y"
     { (yyval.node) = Access_Variable('v',(yyvsp[(1) - (1)].value));        ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1603 "1.tab.c"
+#line 1611 "1.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1811,7 +1819,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 77 ".\\1.y"
+#line 78 "1.y"
 
 
 void yyerror(char *s){
@@ -1821,12 +1829,13 @@ void yyerror(char *s){
 int main(void)
 {
      
-    yyin = fopen("in.txt", "r");
-    yyout = fopen("out.txt", "w");
+    yyin    = fopen("in.txt", "r");
+    yyout   = fopen("out.txt", "w");
     yyError = fopen("outError.txt", "w");
+    treeFile  = fopen("tree.txt", "w");
     
     yyparse();   
-   int sym[26] = {0};
+   
 /*
     if (root != NULL) 
     printf("yes\n");
@@ -1834,13 +1843,14 @@ int main(void)
     printf("NO\n");
 
 */
-    execute_ast(root, sym, yyout);
+   
     // TreePrinter(root);
-
+    execute_ast(root, sym, yyout); 
+    print_tree(root, 0, "",treeFile);
     fclose(yyin);
     fclose(yyout);
     fclose(yyError);
-    // free_ast(root);
+    free_ast(root);
 
 
     return 0;

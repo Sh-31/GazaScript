@@ -261,13 +261,9 @@ static void yy_flex_free YY_PROTO(( void * ));
 
 #define YY_AT_BOL() (yy_current_buffer->yy_at_bol)
 
-
-#define FLEX_DEBUG
 typedef unsigned char YY_CHAR;
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
 typedef int yy_state_type;
-
-#define FLEX_DEBUG
 extern char *yytext;
 #define yytext_ptr yytext
 
@@ -387,15 +383,6 @@ static yyconst short int yy_chk[107] =
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
-extern int yy_flex_debug;
-int yy_flex_debug = 1;
-
-static yyconst short int yy_rule_linenum[13] =
-    {   0,
-        9,   17,   21,   22,   23,   24,   25,   26,   27,   28,
-       29,   30
-    } ;
-
 /* The intent behind this definition is that it'll catch
  * any uses of REJECT which flex missed.
  */
@@ -409,7 +396,8 @@ char *yytext;
 #line 3 ".\\1.l"
 #include "1.tab.h"
 #include <string.h>
-#line 413 "lex.yy.c"
+extern int sym[26];
+#line 401 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -560,10 +548,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 7 ".\\1.l"
+#line 8 ".\\1.l"
 
 
-#line 567 "lex.yy.c"
+#line 555 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -636,21 +624,6 @@ yy_find_action:
 
 do_action:	/* This label is used only to access EOF actions. */
 
-		if ( yy_flex_debug )
-			{
-			if ( yy_act == 0 )
-				fprintf( stderr, "--scanner backing up\n" );
-			else if ( yy_act < 13 )
-				fprintf( stderr, "--accepting rule at line %d (\"%s\")\n",
-				         yy_rule_linenum[yy_act], yytext );
-			else if ( yy_act == 13 )
-				fprintf( stderr, "--accepting default rule (\"%s\")\n",
-				         yytext );
-			else if ( yy_act == 14 )
-				fprintf( stderr, "--(end of buffer or a NUL)\n" );
-			else
-				fprintf( stderr, "--EOF (start condition %d)\n", YY_START );
-			}
 
 		switch ( yy_act )
 	{ /* beginning of action switch */
@@ -663,7 +636,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 9 ".\\1.l"
+#line 10 ".\\1.l"
 {
                             if (*yytext >= 'a' && *yytext <= 'z') {
                                 yylval.value = *yytext - 'a';
@@ -675,7 +648,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 ".\\1.l"
+#line 18 ".\\1.l"
 {
                             yylval.value = atoi(yytext); 
                             return INTEGER; 
@@ -683,60 +656,60 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 ".\\1.l"
+#line 22 ".\\1.l"
 { return  EQUAL;  }             
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 ".\\1.l"
+#line 23 ".\\1.l"
 { return *yytext; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 ".\\1.l"
-; /* skip whitespace */
+#line 24 ".\\1.l"
+;             /* skip whitespace */
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 ".\\1.l"
+#line 25 ".\\1.l"
 { return PRINT; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 ".\\1.l"
+#line 26 ".\\1.l"
 { return IF;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 ".\\1.l"
+#line 27 ".\\1.l"
 { return ELSE;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 ".\\1.l"
+#line 28 ".\\1.l"
 { return END;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 ".\\1.l"
+#line 29 ".\\1.l"
 { return FOR;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 ".\\1.l"
+#line 30 ".\\1.l"
 { yylval.strvalue = strdup(yytext); return STRING; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 ".\\1.l"
+#line 31 ".\\1.l"
 { yyerror("invalid character"); /* anything else is an error */ }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 32 ".\\1.l"
+#line 33 ".\\1.l"
 ECHO;
 	YY_BREAK
-#line 740 "lex.yy.c"
+#line 713 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1622,7 +1595,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 32 ".\\1.l"
+#line 33 ".\\1.l"
 
 
 int yywrap(void) {
