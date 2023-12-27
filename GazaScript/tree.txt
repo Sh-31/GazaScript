@@ -1,0 +1,18 @@
+|__ BRANCH
+    |-- BRANCH
+    |__ IF
+        |-- BRANCH
+        |   |-- BRANCH
+        |   |   |-- BRANCH
+        |   |   |__ "No"
+        |__ BRANCH
+            |-- BRANCH
+            |   |-- BRANCH
+            |   |__ FOR
+            |       |-- =
+            |       |   |__ +
+            |       |       |-- 1
+            |       |       |__ i
+            |       |__ =
+            |           |__ 0
+            |__ "True"

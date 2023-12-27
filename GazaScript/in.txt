@@ -1,1 +1,13 @@
-5 / 0
+if(1):
+print("True")
+for(i=0;i<4;i=i+1):
+    PRINT("i:")
+    PRINT(i)
+    for(j=0;j<6;j=j+2):
+    print("j:")
+    PRINT(j)
+    end
+End 
+else:
+PRINT("No")
+end   
