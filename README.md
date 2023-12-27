@@ -95,24 +95,28 @@ The generated AST is traversed and executed to interpret GazaScript programs. Th
 
 
 <details>
-<summary>Sample one</summary>
-   ![in.txt](exmaples/image.png)
-   ![out.txt](exmaples/image-1.png)
-   ![tree.txt](exmaples/image-2.png)
+  <summary>Sample one</summary>
+
+  ![in.txt](exmaples/image.png)
+  ![out.txt](exmaples/image-1.png)
+  ![tree.txt](exmaples/image-2.png)
+
 </details>
 
 <details>
+  <summary>Sample two</summary>
 
-<summary>Sample two</summary>
-![in.txt](exmaples/image-3.png)
-![out txt](exmaples/image-4.png)
-![tree txt](exmaples/image-5.png)
+  ![in.txt](exmaples/image-3.png)
+  ![out.txt](exmaples/image-4.png)
+  ![tree.txt](exmaples/image-5.png)
+
 </details>
-<details>
 
-<summary>Sample tree</summary>
-![in.txt](exmaples/image-6.png)
-![outError.txt](exmaples/image-7.png)
+<details>
+    <summary>Sample tree</summary>
+
+  ![in.txt](exmaples/image-6.png)
+  ![outError.txt](exmaples/image-7.png)
 </details>
 
 ## License
