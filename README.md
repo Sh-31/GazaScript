@@ -43,14 +43,6 @@ sudo apt-get install flex bison   # For Ubuntu/Debian
 
 ## Installation
 
-To build the GazaScript compiler, follow these steps:
-
-```bash
-make
-```
-
-This command compiles the lexer and parser, generating the executable file.
-
 ## Usage
 
 ### Compile the Compiler
