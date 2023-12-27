@@ -1,30 +1,121 @@
-# GazaScript
-Basic Compiler Using Flex and Bison
+# GazaScript Compiler
 
+GazaScript is a Basic Compiler implemented using Flex and Bison. This compiler translates custom source code written in the GazaScript language into executable instructions. The language supports basic arithmetic, logical operations, conditionals, loops, and variable assignments.
 
-| **Terminals/Tokens**               | **Rules**                               | **Semantic Action**                                       |
-|------------------------------------|------------------------------------------|----------------------------------------------------------|
-| 1. VARIABLE                        |                                          |                                                          |
-| 2. INTEGER                        |                                          | Store value of the INTEGER to the Expr value              |
-| 3. Saved Keyword:                  | Print                                    |                                                          |
-|                                    | IF                                       |                                                          |
-|                                    | THEN                                     |                                                          |
-|                                    | ELSE                                     |                                                          |
-|                                    | WHILE                                    |                                                          |
-| **Non-terminals**                  | Main (whole text)                        | No action                                                |
-|                                    | Lines (all the lines of the text)        | I want to look for all lines                             |
-|                                    | Line (one statement)                     |                                                          |
-|                                    | Expr                                     | Expression (Arithmetic - Logical - Rational or a value)  |
-|                                    | Assignment                               | VARIABLE '=' expr: Assign the value of expr to VARIABLE   |
-|                                    | Print_statement                          | 'PRINT' '(' expr ')' : Print the value of expr           |
-| **Rules**                          | Symantec Action                          |                                                          |
-| Main -> lines                      | Main is the start symbol                 | I want to look for all lines                             |
-| Lines -> lines line '\n'           | Lines consist of lines and line ending with '\n' | I want to look for what is line                    |
-| Line -> expr                       | Line can be Expression (Arithmetic - Logical - Rational or just a value) |                                                          |
-|         | Assignment                 | Variable assignment                      | Assign the value of expr to VARIABLE                     |
-|         | Print_statement            | Print statement                          | 'PRINT' '(' expr ')' : Print the value of expr           |
-| Assignment -> VARIABLE '=' expr    | Assign the value of expr to VARIABLE      |                                                          |
-| Print_statement -> 'PRINT' '(' expr ')' | Print the value of expr               |                                                          |
-|                 | 'PRINT' '(' VARIABLE ')' | Print the value stored at VARIABLE                        |
-| Expr -> INTEGER                    | Store value of the INTEGER to the Expr value |                                                          |
-|        | expr '+' expr               | Calculate exp1 + exp2 and store it at expr3             |                                                          |
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Getting Started](#getting-started)
+   - [Clone the Repository](#clone-the-repository)
+   - [Dependencies](#dependencies)
+3. [Installation](#installation)
+4. [Usage](#usage)
+   - [Compile the Compiler](#compile-the-compiler)
+   - [Run GazaScript Programs](#run-gazascript-programs)
+5. [File Structure](#file-structure)
+6. [Grammar Overview](#grammar-overview)
+7. [Compilation Process](#compilation-process)
+8. [Execution Details](#execution-details)
+9. [Sample Programs](#sample-programs)
+10. [License](#license)
+11. [Acknowledgments](#acknowledgments)
+12. [Contact Information](#contact-information)
+
+## Project Overview
+
+GazaScript is designed to be a simple yet powerful language for learning the basics of compiler construction. It supports fundamental programming constructs and serves as an educational tool for understanding lexing, parsing, and abstract syntax trees.
+
+## Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/GazaScript.git
+cd GazaScript
+```
+
+### Dependencies
+
+Make sure you have Flex and Bison installed on your system. You can install them using your package manager:
+
+```bash
+sudo apt-get install flex bison   # For Ubuntu/Debian
+```
+
+## Installation
+
+To build the GazaScript compiler, follow these steps:
+
+```bash
+make
+```
+
+This command compiles the lexer and parser, generating the executable file.
+
+## Usage
+
+### Compile the Compiler
+
+```bash
+flex 1.l
+bison -d 1.y
+gcc -o a.exe  .\1.tab.c .\lex.yy.c .\SyntaxTree.c
+a.exe
+```
+
+### Run GazaScript Programs
+
+```bash
+./a.exe
+```
+
+## File Structure
+
+- `1.l`: Contains the lexical analyzer (Flex) definitions.
+- `1.y`: Specifies the grammar rules and actions (Bison).
+- `SyntaxTree.h` and `SyntaxTree.c`: Define and implement the abstract syntax tree (AST) data structure.
+- `in.txt`: Input file for GazaScript programs. Place your source code here.
+- `out.txt`: Output file where the compiled program's result is stored.
+- `outError.txt`: Log file capturing any errors encountered during compilation or execution.
+- `tree.txt`: Text file representing the abstract syntax tree (AST) of the GazaScript program.
+- `Commands.txt`: Contains commands needed to run the GazaScript compiler and execute programs.
+
+## Grammar Overview
+
+The GazaScript grammar includes terminals, non-terminals, rules, and semantic actions. Refer to the grammar section in the parser file (`1.y`) and Syntax-Directed-translation.pdf for a detailed breakdown.
+
+## Compilation Process
+
+The compilation process involves using Flex to generate the lexer (`lex.yy.c`) and Bison to generate the parser (`parser.tab.c`). The Makefile streamlines this process.
+
+## Execution Details
+
+The generated AST is traversed and executed to interpret GazaScript programs. The `execute_ast` function in `SyntaxTree.c` handles the interpretation logic.
+
+## Sample Programs
+
+- Sample one:
+
+![in.txt](exmaples\image.png)
+![out.txt](exmaples\image-1.png)
+![tree.txt]exmaples\(image-2.png)
+- Sample two:
+
+![in.txt](exmaples\image-3.png)
+![out txt](exmaples\image-4.png)
+![tree txt](exmaples\image-5.png)
+- sample tree:
+
+![in.txt](exmaples\image-6.png)
+![outError.txt](exmaples\image-7.png)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- The creators of Flex and Bison for providing powerful tools for compiler construction.
+
+## Contact Information
+
+For issues, suggestions, or inquiries, please contact [sherif201665@gmail.com](mailto:sherif201665@gmail.com).

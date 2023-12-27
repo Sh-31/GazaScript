@@ -2,7 +2,6 @@
 
 #include "SyntaxTree.h"
 
-
 ASTNode *Mk_leaf_node(char type, int value)
 {
     ASTNode *node = (ASTNode *)malloc(sizeof(ASTNode));
@@ -32,7 +31,7 @@ ASTNode *Mk_interbal_Node(char type, ASTNode *left, ASTNode *right)
     node->left = left;
     node->right = right;
     node->condition = NULL;
-    node->lines = NULL; 
+    node->lines = NULL;
     node->variableASCII = NULL;
     node->variable = 0;
     return node;
@@ -225,25 +224,29 @@ int execute_ast(ASTNode *node, int sym[], FILE *yyout)
     return 0;
 }
 
-char *lookup(int type) {
+char *lookup(int type)
+{
     char *buffer = (char *)malloc(20 * sizeof(char));
-    switch(type) {
-        case 'F':
-            return "IF";
-        case 'p':
-            return "PRINT";
-        case 'l':
-            return "LINK";
-        case 'w':
-            return "WHILE";
-        case 'L':
-            return "FOR";
-        default:
-            sprintf(buffer, "%c", type);  // Convert the integer to a string
-            return buffer;
+    switch (type)
+    {
+    case 'F':
+        return "IF";
+    case 'p':
+    case 'S':
+        return "PRINT";
+    case 'r':
+        return "BRANCH";
+    case 'w':
+        return "WHILE";
+    case 'l':
+        return "FOR";
+    default:
+        sprintf(buffer, "%c", type); // Convert the integer to a string
+        return buffer;
     }
 }
-void print_tree(struct ASTNode* root, int isLeft, char* prefix,FILE *treeFile) {
+void print_tree(struct ASTNode *root, int isLeft, char *prefix, FILE *treeFile)
+{
     if (root == NULL)
         return;
     fprintf(treeFile, "%s", prefix);
@@ -252,20 +255,20 @@ void print_tree(struct ASTNode* root, int isLeft, char* prefix,FILE *treeFile) {
         fprintf(treeFile, " %d\n", root->value);
     else if (root->type == 'v')
         fprintf(treeFile, " %c\n", root->variable + 'a');
-    else if (root->type == 'P') {
+    else if (root->type == 'S')
+    {
         fprintf(treeFile, " %s\n", root->variableASCII);
     }
-    else {
-        static char buffer[20]; 
+    else
+    {
+        static char buffer[20];
         snprintf(buffer, sizeof(buffer), lookup(root->type));
         fprintf(treeFile, " %s\n", buffer);
     }
     // Enter the next tree level - left and right branch
-    char* newPrefix = (char*)malloc(strlen(prefix) + 5);
+    char *newPrefix = (char *)malloc(strlen(prefix) + 5);
     sprintf(newPrefix, "%s%s", prefix, isLeft ? "|   " : "    ");
-    
-    print_tree(root->right, 1, newPrefix,treeFile);
-    print_tree(root->left, 0, newPrefix,treeFile);
-    // print_tree(root->cond, 0, newPrefix);
-    // print_tree(root->flow, 0, newPrefix);
+
+    print_tree(root->right, 1, newPrefix, treeFile);
+    print_tree(root->left, 0, newPrefix, treeFile);
 }
