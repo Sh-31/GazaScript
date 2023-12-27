@@ -127,6 +127,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - The creators of Flex and Bison for providing powerful tools for compiler construction.
 
+- Recommended Tutorials:
+  - [Bison Tutorial](https://youtu.be/OWE7jIeRETU?si=AT07_cW2iYTgGDwg)
+  - [Flex Tutorial](https://www.youtube.com/watch?v=E-3IdhZh29Q)
+  - [Constructing Syntax Trees Tutorial](https://www.youtube.com/watch?v=4bTvFbDc7hw)
+  - [Interpreters Tutorial](https://www.youtube.com/watch?v=t0JFXnsD3UY&t=1551s)
+
 ## Contact Information
 
 For issues, suggestions, or inquiries, please contact [sherif201665@gmail.com](mailto:sherif201665@gmail.com).
