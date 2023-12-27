@@ -43,14 +43,6 @@ sudo apt-get install flex bison   # For Ubuntu/Debian
 
 ## Installation
 
-To build the GazaScript compiler, follow these steps:
-
-```bash
-make
-```
-
-This command compiles the lexer and parser, generating the executable file.
-
 ## Usage
 
 ### Compile the Compiler
@@ -95,6 +87,7 @@ The generated AST is traversed and executed to interpret GazaScript programs. Th
 
 
 <details>
+<<<<<<< HEAD
 <summary>Sample one</summary>
 ![in.txt](exmaples/image.png)
 ![out.txt](exmaples/image-1.png)
@@ -114,6 +107,30 @@ The generated AST is traversed and executed to interpret GazaScript programs. Th
 <summary>Sample three</summary>
 ![in.txt](exmaples/image-6.png)
 ![outError.txt](exmaples/image-7.png)
+=======
+  <summary>Sample one</summary>
+
+  ![in.txt](exmaples/image.png)
+  ![out.txt](exmaples/image-1.png)
+  ![tree.txt](exmaples/image-2.png)
+
+</details>
+
+<details>
+  <summary>Sample two</summary>
+
+  ![in.txt](exmaples/image-3.png)
+  ![out.txt](exmaples/image-4.png)
+  ![tree.txt](exmaples/image-5.png)
+
+</details>
+
+<details>
+    <summary>Sample tree</summary>
+
+  ![in.txt](exmaples/image-6.png)
+  ![outError.txt](exmaples/image-7.png)
+>>>>>>> 56eb7f235050d92f85836d9f3f8ca18bd0eea3d6
 </details>
 
 ## License
@@ -123,6 +140,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 - The creators of Flex and Bison for providing powerful tools for compiler construction.
+
+- Recommended Tutorials:
+  - [Bison Tutorial](https://youtu.be/OWE7jIeRETU?si=AT07_cW2iYTgGDwg)
+  - [Flex Tutorial](https://www.youtube.com/watch?v=E-3IdhZh29Q)
+  - [Constructing Syntax Trees Tutorial](https://www.youtube.com/watch?v=4bTvFbDc7hw)
+  - [Interpreters Tutorial](https://www.youtube.com/watch?v=t0JFXnsD3UY&t=1551s)
 
 ## Contact Information
 
